@@ -7,9 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="QuickTerm"
+    Title=""
     Width="0"
     Height="0"
+    d:DataContext="{d:DesignInstance local:TrayHostWindow,
+                                     IsDesignTimeCreatable=True}"
     Loaded="Window_Loaded"
     ShowInTaskbar="False"
     Visibility="Hidden"
@@ -24,6 +26,7 @@
             TooltipText="QuickTerm">
             <tray:NotifyIcon.Menu>
                 <ContextMenu>
+                    <MenuItem Header="Commands" ItemsSource="{Binding Config.Nodes}" />
                     <MenuItem Click="SettingsButton_Click" Header="Settings" />
                     <MenuItem Click="ExitButton_Click" Header="Exit" />
                 </ContextMenu>

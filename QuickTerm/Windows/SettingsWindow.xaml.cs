@@ -1,15 +1,28 @@
-﻿using QuickTerm.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using QuickTerm.Models;
 using System.Windows;
 
 namespace QuickTerm.Windows
 {
+	[ObservableObject]
 	public partial class SettingsWindow : Window
 	{
-		private readonly ConfigModel _config;
+		[ObservableProperty]
+		private ConfigModel _config;
+
 		public SettingsWindow(ConfigModel config)
 		{
-			_config = config;
+			DataContext = this;
+
+			Config = config;
+
 			InitializeComponent();
+		}
+
+		private void SaveSettingsButton_Click(object sender, RoutedEventArgs e)
+		{
+			Config.Save();
+			Close();
 		}
 	}
 }

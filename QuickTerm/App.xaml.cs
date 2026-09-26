@@ -4,6 +4,7 @@ using QuickTerm.Windows;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
+using Wpf.Ui.Appearance;
 
 namespace QuickTerm
 {
@@ -16,6 +17,8 @@ namespace QuickTerm
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
+			ApplicationThemeManager.ApplySystemTheme();
+
 			base.OnStartup(e);
 			var serviceCollection = new ServiceCollection();
 			ConfigureServices(serviceCollection);

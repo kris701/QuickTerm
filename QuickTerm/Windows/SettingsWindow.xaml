@@ -5,12 +5,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:QuickTerm.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="QuickTerm Settings"
     Width="800"
     Height="450"
+    d:DataContext="{d:DesignInstance local:SettingsWindow,
+                                     IsDesignTimeCreatable=True}"
+    Background="{DynamicResource ApplicationBackgroundBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Icon="/Assets/icon1.png"
     ResizeMode="NoResize"
     Topmost="True"
     mc:Ignorable="d">
-    <Grid />
+    <StackPanel Margin="5">
+        <ui:Button
+            x:Name="SaveSettingsButton"
+            HorizontalAlignment="Stretch"
+            Appearance="Success"
+            Click="SaveSettingsButton_Click"
+            Content="Save" />
+    </StackPanel>
 </Window>

@@ -34,4 +34,8 @@
 	  <Resource Include="Assets\icon2.png" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="UserControls\" />
+	</ItemGroup>
+
 </Project>
