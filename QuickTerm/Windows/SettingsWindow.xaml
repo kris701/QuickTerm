@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:QuickTerm.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:usercon="clr-namespace:QuickTerm.UserControls"
     Title="QuickTerm Settings"
     Width="800"
     Height="450"
@@ -18,11 +19,45 @@
     Topmost="True"
     mc:Ignorable="d">
     <StackPanel Margin="5">
+
+        <ItemsControl ItemsSource="{Binding Config.Nodes}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="45" />
+                        </Grid.ColumnDefinitions>
+
+                        <usercon:TerminalNodeControl Data="{Binding}" />
+                        <ui:Button
+                            x:Name="RemoveNodeButton"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Appearance="Danger"
+                            Click="RemoveNodeButton_Click"
+                            Icon="{ui:SymbolIcon Delete16}"
+                            Tag="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ui:Button
+            x:Name="AddRootNode"
+            HorizontalAlignment="Stretch"
+            Appearance="Info"
+            Click="AddRootNode_Click"
+            Content="Add"
+            Icon="{ui:SymbolIcon Add16}" />
+
         <ui:Button
             x:Name="SaveSettingsButton"
             HorizontalAlignment="Stretch"
             Appearance="Success"
             Click="SaveSettingsButton_Click"
-            Content="Save" />
+            Content="Save"
+            Icon="{ui:SymbolIcon Save16}" />
     </StackPanel>
 </Window>

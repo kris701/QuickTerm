@@ -16,5 +16,15 @@ namespace QuickTerm.Models
         {
             File.WriteAllText("config.json", JsonSerializer.Serialize(this));
         }
-    }
+
+        public ConfigModel()
+        {
+            Nodes = new List<TerminalNode>();
+        }
+
+        public ConfigModel(ConfigModel other)
+        {
+            Nodes = new List<TerminalNode>(other.Nodes);
+        }
+	}
 }

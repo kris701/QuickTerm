@@ -36,10 +36,10 @@ namespace QuickTerm
 				if (model != null)
 					services.AddSingleton(model);
 				else
-					services.AddSingleton<ConfigModel>();
+					services.AddSingleton(new ConfigModel());
 			}
 			else
-				services.AddSingleton<ConfigModel>();
+				services.AddSingleton(new ConfigModel());
 
 			// Setup windows
 			services.AddSingleton<SettingsWindow>();
