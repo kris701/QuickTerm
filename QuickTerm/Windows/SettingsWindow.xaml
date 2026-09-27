@@ -2,11 +2,12 @@
     x:Class="QuickTerm.Windows.SettingsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:QuickTerm.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:QuickTerm.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:QuickTerm.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:usercon="clr-namespace:QuickTerm.UserControls"
     Title="QuickTerm Settings"
     Width="800"
     Height="450"
@@ -18,46 +19,161 @@
     ResizeMode="NoResize"
     Topmost="True"
     mc:Ignorable="d">
-    <StackPanel Margin="5">
+    <Window.Resources>
+        <converters:NullToVisibilityConverter
+            x:Key="NullToVis"
+            False="Visible"
+            True="Collapsed" />
+        <converters:NullToVisibilityConverter
+            x:Key="NullToVisInv"
+            False="Hidden"
+            True="Visible" />
+        <converters:ListNotEmptyConverter
+            x:Key="CountToVis"
+            False="Hidden"
+            True="Visible" />
+        <converters:ListNotEmptyConverter
+            x:Key="CountToVisInv"
+            False="Visible"
+            True="Hidden" />
 
-        <ItemsControl ItemsSource="{Binding Config.Nodes}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="5">
+        <DataTemplate DataType="{x:Type models:TerminalNode}">
+            <Border
+                BorderBrush="Gray"
+                BorderThickness="1"
+                CornerRadius="5">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="45" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <ui:TextBox
+                        Grid.ColumnSpan="2"
+                        Margin="3"
+                        Text="{Binding Name}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding Command, Converter={StaticResource NullToVisInv}}">
+                        <Grid Visibility="{Binding Nodes, Converter={StaticResource CountToVisInv}}">
+                            <ui:Button
+                                Margin="3"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Appearance="Info"
+                                Click="AddNode_Click"
+                                Content="Add Node"
+                                Icon="{ui:SymbolIcon Add16}"
+                                Tag="{Binding}" />
+                        </Grid>
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Visibility="{Binding Command, Converter={StaticResource NullToVisInv}}">
+                        <Grid Visibility="{Binding Nodes, Converter={StaticResource CountToVisInv}}">
+                            <ui:Button
+                                Margin="3"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Appearance="Info"
+                                Click="AddCommandButton_Click"
+                                Content="Set Command"
+                                Icon="{ui:SymbolIcon Add16}"
+                                Tag="{Binding}" />
+                        </Grid>
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Visibility="{Binding Command, Converter={StaticResource NullToVis}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="45" />
                         </Grid.ColumnDefinitions>
 
-                        <usercon:TerminalNodeControl Data="{Binding}" />
+                        <ContentPresenter Content="{Binding Command}" />
+
                         <ui:Button
-                            x:Name="RemoveNodeButton"
                             Grid.Column="1"
+                            Margin="3"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Appearance="Danger"
-                            Click="RemoveNodeButton_Click"
+                            Click="RemoveCommandButton_Click"
                             Icon="{ui:SymbolIcon Delete16}"
                             Tag="{Binding}" />
                     </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                    <Grid
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Visibility="{Binding Nodes, Converter={StaticResource CountToVis}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
 
-        <ui:Button
-            x:Name="AddRootNode"
-            HorizontalAlignment="Stretch"
-            Appearance="Info"
-            Click="AddRootNode_Click"
-            Content="Add"
-            Icon="{ui:SymbolIcon Add16}" />
+                        <ItemsControl ItemsSource="{Binding Nodes}" />
+                        <ui:Button
+                            Grid.Row="1"
+                            Margin="3"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Appearance="Info"
+                            Click="AddNode_Click"
+                            Content="Add Node"
+                            Icon="{ui:SymbolIcon Add16}"
+                            Tag="{Binding}" />
+                    </Grid>
 
-        <ui:Button
-            x:Name="SaveSettingsButton"
-            HorizontalAlignment="Stretch"
-            Appearance="Success"
-            Click="SaveSettingsButton_Click"
-            Content="Save"
-            Icon="{ui:SymbolIcon Save16}" />
-    </StackPanel>
+                    <ui:Button
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
+                        Margin="3"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Appearance="Danger"
+                        Click="RemoveNodeButton_Click"
+                        Icon="{ui:SymbolIcon Delete16}"
+                        Tag="{Binding}" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type models:TerminalCommand}">
+            <Grid Margin="5">
+                <ui:TextBox Margin="3" Text="{Binding Command}" />
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+
+    <ScrollViewer>
+        <StackPanel Margin="5">
+
+            <ItemsControl Margin="2" ItemsSource="{Binding Config.Nodes}" />
+
+            <ui:Button
+                x:Name="AddRootNode"
+                Margin="2"
+                HorizontalAlignment="Stretch"
+                Appearance="Info"
+                Click="AddRootNode_Click"
+                Content="Add"
+                Icon="{ui:SymbolIcon Add16}" />
+
+            <ui:Button
+                x:Name="SaveSettingsButton"
+                Margin="2"
+                HorizontalAlignment="Stretch"
+                Appearance="Success"
+                Click="SaveSettingsButton_Click"
+                Content="Save"
+                Icon="{ui:SymbolIcon Save16}" />
+        </StackPanel>
+    </ScrollViewer>
 </Window>

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace QuickTerm.Models
 {
-    public class TerminalCommand
-    {
+	public class TerminalCommand
+	{
 		[Required]
 		public string Command { get; set; } = "";
 		[Required]

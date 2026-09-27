@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace QuickTerm.Models
+﻿namespace QuickTerm.Models
 {
-    public enum TerminalTypes
-    {
-        PowerShell,
-        CMD
-    }
+	public enum TerminalTypes
+	{
+		PowerShell,
+		CMD
+	}
 }

@@ -12,7 +12,7 @@ namespace QuickTerm.Windows
 		private ConfigModel _config;
 
 		private readonly SettingsWindow _settingsWindow;
-		
+
 		public TrayHostWindow(ConfigModel config, SettingsWindow settingsWindow)
 		{
 			DataContext = this;
