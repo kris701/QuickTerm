@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:QuickTerm.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:QuickTerm.Models"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="QuickTerm Settings"
     Width="800"
@@ -16,7 +17,6 @@
     Background="{DynamicResource ApplicationBackgroundBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Icon="/Assets/icon1.png"
-    ResizeMode="NoResize"
     Topmost="True"
     mc:Ignorable="d">
     <Window.Resources>
@@ -36,6 +36,15 @@
             x:Key="CountToVisInv"
             False="Visible"
             True="Hidden" />
+
+        <ObjectDataProvider
+            x:Key="terminalOptions"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:TerminalTypes" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
 
         <DataTemplate DataType="{x:Type models:TerminalNode}">
             <Border
@@ -64,7 +73,7 @@
                                 Margin="3"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                Appearance="Info"
+                                Appearance="Primary"
                                 Click="AddNode_Click"
                                 Content="Add Node"
                                 Icon="{ui:SymbolIcon Add16}"
@@ -81,7 +90,7 @@
                                 Margin="3"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                Appearance="Info"
+                                Appearance="Primary"
                                 Click="AddCommandButton_Click"
                                 Content="Set Command"
                                 Icon="{ui:SymbolIcon Add16}"
@@ -146,34 +155,60 @@
             </Border>
         </DataTemplate>
         <DataTemplate DataType="{x:Type models:TerminalCommand}">
-            <Grid Margin="5">
-                <ui:TextBox Margin="3" Text="{Binding Command}" />
-            </Grid>
+            <Border
+                Margin="2"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                CornerRadius="5">
+                <StackPanel Margin="5">
+                    <Label>Command</Label>
+                    <ui:TextBox
+                        Height="100"
+                        Margin="3"
+                        Text="{Binding Command}"
+                        TextWrapping="Wrap" />
+                    <Label>Terminal Type</Label>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource terminalOptions}}" SelectedItem="{Binding TerminalType}" />
+                    <Label>Show Terminal</Label>
+                    <ui:ToggleSwitch
+                        IsChecked="{Binding ShowTerminal}"
+                        OffContent="No"
+                        OnContent="Yes" />
+                </StackPanel>
+            </Border>
         </DataTemplate>
     </Window.Resources>
 
-    <ScrollViewer>
-        <StackPanel Margin="5">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
 
+        <ScrollViewer>
             <ItemsControl Margin="2" ItemsSource="{Binding Config.Nodes}" />
+        </ScrollViewer>
 
-            <ui:Button
-                x:Name="AddRootNode"
-                Margin="2"
-                HorizontalAlignment="Stretch"
-                Appearance="Info"
-                Click="AddRootNode_Click"
-                Content="Add"
-                Icon="{ui:SymbolIcon Add16}" />
+        <ui:Button
+            x:Name="AddRootNode"
+            Grid.Row="1"
+            Margin="2"
+            HorizontalAlignment="Stretch"
+            Appearance="Info"
+            Click="AddRootNode_Click"
+            Content="Add"
+            Icon="{ui:SymbolIcon Add16}" />
 
-            <ui:Button
-                x:Name="SaveSettingsButton"
-                Margin="2"
-                HorizontalAlignment="Stretch"
-                Appearance="Success"
-                Click="SaveSettingsButton_Click"
-                Content="Save"
-                Icon="{ui:SymbolIcon Save16}" />
-        </StackPanel>
-    </ScrollViewer>
+        <ui:Button
+            x:Name="SaveSettingsButton"
+            Grid.Row="2"
+            Margin="2"
+            HorizontalAlignment="Stretch"
+            Appearance="Success"
+            Click="SaveSettingsButton_Click"
+            Content="Save"
+            Icon="{ui:SymbolIcon Save16}" />
+    </Grid>
+
 </Window>
