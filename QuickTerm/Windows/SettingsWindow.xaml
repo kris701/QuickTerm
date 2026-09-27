@@ -186,6 +186,15 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
+        <Grid Visibility="{Binding Config.Nodes, Converter={StaticResource CountToVisInv}}">
+            <Label
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontStyle="Italic">
+                No nodes added yet...
+            </Label>
+        </Grid>
+
         <ScrollViewer>
             <ItemsControl Margin="2" ItemsSource="{Binding Config.Nodes}" />
         </ScrollViewer>

@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
 	  <Version>1.0.0</Version>
-	  <!--<ApplicationIcon>Assets\logo.ico</ApplicationIcon>-->
+	  <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
 	  <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
   </PropertyGroup>
 
@@ -29,9 +29,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="Assets\icon.ico" />
 	  <Resource Include="Assets\icon1.png" />
 	  <Resource Include="Assets\icon2.png" />
+	  <Resource Include="Assets\icon.ico" />
 	</ItemGroup>
 
 </Project>

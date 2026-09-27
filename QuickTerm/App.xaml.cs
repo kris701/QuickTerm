@@ -4,8 +4,10 @@ using QuickTerm.Windows;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Media;
 using Wpf.Ui.Appearance;
 
+[assembly: DisableDpiAwareness]
 namespace QuickTerm
 {
 	/// <summary>
@@ -23,6 +25,7 @@ namespace QuickTerm
 			var serviceCollection = new ServiceCollection();
 			ConfigureServices(serviceCollection);
 			_serviceProvider = serviceCollection.BuildServiceProvider();
+
 			var window = _serviceProvider.GetRequiredService<TrayHostWindow>();
 			window.Show();
 		}
