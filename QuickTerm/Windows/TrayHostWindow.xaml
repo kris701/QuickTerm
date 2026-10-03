@@ -14,10 +14,12 @@
     Height="0"
     d:DataContext="{d:DesignInstance local:TrayHostWindow,
                                      IsDesignTimeCreatable=True}"
+    Background="{DynamicResource ApplicationBackgroundBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Icon="/Assets/icon1.png"
     Loaded="Window_Loaded"
     ShowInTaskbar="False"
     Visibility="Hidden"
-    WindowStyle="None"
     mc:Ignorable="d">
 
     <Window.Resources>
@@ -25,35 +27,39 @@
             x:Key="CountToVis"
             False="Collapsed"
             True="Visible" />
+        <converters:BooleanToVisibilityConverter
+            x:Key="BoolToVis"
+            False="Collapsed"
+            True="Visible" />
     </Window.Resources>
 
-    <Grid>
-        <tray:NotifyIcon
-            x:Name="trayIcon"
-            FocusOnLeftClick="True"
-            Icon="pack://application:,,,/Assets/icon2.png"
-            MenuOnRightClick="True"
-            TooltipText="QuickTerm">
-            <tray:NotifyIcon.Menu>
-                <ContextMenu>
-                    <MenuItem
-                        Header="Commands"
-                        ItemsSource="{Binding Config.Nodes}"
-                        Visibility="{Binding Config.Nodes, Converter={StaticResource CountToVis}}">
-                        <MenuItem.ItemContainerStyle>
-                            <Style TargetType="MenuItem">
-                                <Setter Property="Header" Value="{Binding Name}" />
-                                <Setter Property="ItemsSource" Value="{Binding Nodes}" />
-                                <Setter Property="Tag" Value="{Binding Command}" />
-                                <EventSetter Event="Click" Handler="ExecuteCommand_Click" />
-                            </Style>
-                        </MenuItem.ItemContainerStyle>
-                    </MenuItem>
-                    <MenuItem Click="SettingsButton_Click" Header="Settings" />
-                    <MenuItem Click="ExitButton_Click" Header="Exit" />
-                    <MenuItem Click="UpdateButton_Click" Header="Update Available!" />
-                </ContextMenu>
-            </tray:NotifyIcon.Menu>
-        </tray:NotifyIcon>
-    </Grid>
+    <tray:NotifyIcon
+        x:Name="trayIcon"
+        Icon="pack://application:,,,/Assets/icon2.png"
+        MenuOnRightClick="True"
+        TooltipText="QuickTerm">
+        <tray:NotifyIcon.Menu>
+            <ContextMenu>
+                <MenuItem
+                    Header="Commands"
+                    ItemsSource="{Binding Config.Nodes}"
+                    Visibility="{Binding Config.Nodes, Converter={StaticResource CountToVis}}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Header" Value="{Binding Name}" />
+                            <Setter Property="ItemsSource" Value="{Binding Nodes}" />
+                            <Setter Property="Tag" Value="{Binding Command}" />
+                            <EventSetter Event="Click" Handler="ExecuteCommand_Click" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
+                <MenuItem Click="SettingsButton_Click" Header="Settings" />
+                <MenuItem Click="ExitButton_Click" Header="Exit" />
+                <MenuItem
+                    Click="UpdateButton_Click"
+                    Header="Update Available!"
+                    Visibility="{Binding UpdateAvailable, Converter={StaticResource BoolToVis}}" />
+            </ContextMenu>
+        </tray:NotifyIcon.Menu>
+    </tray:NotifyIcon>
 </Window>

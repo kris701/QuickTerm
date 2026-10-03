@@ -42,8 +42,10 @@ namespace QuickTerm.Windows
 
 		private async void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (Config.Nodes.Count == 0)
-				_settingsWindow.Show();
+			_settingsWindow.Show();
+			
+			if (Config.Nodes.Count > 0)
+				_settingsWindow.Hide();
 
 			if (!trayIcon.IsRegistered)
 				trayIcon.Register();
