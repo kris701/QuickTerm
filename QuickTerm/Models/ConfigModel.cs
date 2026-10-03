@@ -53,12 +53,12 @@ namespace QuickTerm.Models
 			if (RunOnStartup)
 				ShortcutHelper.GenerateShortcut(
 					$"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\",
-					"GameWatch",
+					"QuickTerm",
 					module.FileName);
 			else
 				ShortcutHelper.RemoveShortcut(
 					$"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\",
-					"GameWatch",
+					"QuickTerm",
 					module.FileName);
 		}
 	}

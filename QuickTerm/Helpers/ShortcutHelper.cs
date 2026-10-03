@@ -13,7 +13,7 @@ namespace QuickTerm.Helpers
 			IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
 			IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(dir);
 
-			shortcut.Description = "Startup shortcut for GameWatch";
+			shortcut.Description = "Startup shortcut for QuickTerm";
 			shortcut.WorkingDirectory = linkPath.Replace($"{filename}.exe", "");
 			shortcut.TargetPath = linkPath;
 			shortcut.Save();
