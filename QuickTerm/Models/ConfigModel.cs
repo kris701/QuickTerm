@@ -12,6 +12,8 @@ namespace QuickTerm.Models
 		public List<TerminalNode> Nodes { get; set; } = new List<TerminalNode>();
 		[Required]
 		public bool RunOnStartup { get; set; } = false;
+		[Required]
+		public bool CheckForUpdates { get; set; } = false;
 
 		public void Save()
 		{

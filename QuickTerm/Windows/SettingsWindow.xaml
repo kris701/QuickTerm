@@ -206,6 +206,11 @@
                             IsChecked="{Binding Config.RunOnStartup}"
                             OffContent="No"
                             OnContent="Yes" />
+                        <Label>Check for Updates</Label>
+                        <ui:ToggleSwitch
+                            IsChecked="{Binding Config.CheckForUpdates}"
+                            OffContent="No"
+                            OnContent="Yes" />
                     </StackPanel>
                 </ui:CardExpander>
                 <ui:CardExpander Header="Node Tree">

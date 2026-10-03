@@ -51,6 +51,7 @@
                     </MenuItem>
                     <MenuItem Click="SettingsButton_Click" Header="Settings" />
                     <MenuItem Click="ExitButton_Click" Header="Exit" />
+                    <MenuItem Click="UpdateButton_Click" Header="Update Available!" />
                 </ContextMenu>
             </tray:NotifyIcon.Menu>
         </tray:NotifyIcon>
