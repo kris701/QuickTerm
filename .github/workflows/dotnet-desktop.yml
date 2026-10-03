@@ -50,7 +50,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           skipIfReleaseExists: true
-          artifacts: "QuickTerm/bin/Release/net10.0-windows/publish/*.exe"
+          artifacts: "QuickTerm/bin/Release/net10.0-windows/win-x64/publish/*.exe"
           tag: "v${{ steps.get-version.outputs.package-version }}"
           generateReleaseNotes: true
 
