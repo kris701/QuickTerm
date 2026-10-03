@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using QuickTerm.Models;
+using System.Diagnostics;
 using System.Windows;
 using Wpf.Ui.Controls;
 
@@ -11,19 +12,33 @@ namespace QuickTerm.Windows
 		[ObservableProperty]
 		private ConfigModel _config;
 
+		private ConfigModel _actualConfig;
+
 		public SettingsWindow(ConfigModel config)
 		{
 			DataContext = this;
 
-			Config = config;
+			_actualConfig = config;
+			Config = ConfigModel.Copy(config);
 
 			InitializeComponent();
 		}
 
 		private void SaveSettingsButton_Click(object sender, RoutedEventArgs e)
 		{
-			Config.Save();
-			Close();
+			_actualConfig = ConfigModel.Copy(Config);
+			_actualConfig.Save();
+			Config = ConfigModel.Copy(_actualConfig);
+
+			var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
+			Process.Start(currentExecutablePath);
+			Application.Current.Shutdown();
+		}
+
+		private void CancelSettingsButton_Click(object sender, RoutedEventArgs e)
+		{
+			Config = ConfigModel.Copy(_actualConfig);
+			Hide();
 		}
 
 		private void AddRootNode_Click(object sender, RoutedEventArgs e)
@@ -88,6 +103,11 @@ namespace QuickTerm.Windows
 				node.Command = null;
 				Config = newConfig;
 			}
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			e.Cancel = true;
 		}
 	}
 }

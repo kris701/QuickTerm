@@ -23,5 +23,13 @@ namespace QuickTerm.Models
 		{
 			Nodes = new List<TerminalNode>(other.Nodes);
 		}
+
+		public static ConfigModel Copy(ConfigModel other)
+		{
+			var item = JsonSerializer.Deserialize<ConfigModel>(JsonSerializer.Serialize(other));
+			if (item == null)
+				throw new Exception("Could not copy config!");
+			return item;
+		}
 	}
 }

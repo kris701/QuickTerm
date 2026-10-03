@@ -10,5 +10,7 @@ namespace QuickTerm.Models
 		public TerminalTypes TerminalType { get; set; } = TerminalTypes.PowerShell;
 		[Required]
 		public bool ShowTerminal { get; set; } = true;
+		[Required]
+		public bool PauseOnCompletion { get; set; } = true;
 	}
 }
