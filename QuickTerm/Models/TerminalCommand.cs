@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.IO;
 
 namespace QuickTerm.Models
 {
@@ -6,6 +7,8 @@ namespace QuickTerm.Models
 	{
 		[Required]
 		public string Command { get; set; } = "";
+		[Required]
+		public string WorkingDirectory { get; set; } = Directory.GetCurrentDirectory();
 		[Required]
 		public TerminalTypes TerminalType { get; set; } = TerminalTypes.PowerShell;
 		[Required]

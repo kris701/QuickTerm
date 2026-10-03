@@ -171,6 +171,8 @@
                             Margin="3"
                             Text="{Binding Command}"
                             TextWrapping="Wrap" />
+                        <Label>Working Directory</Label>
+                        <ui:TextBox Margin="3" Text="{Binding WorkingDirectory}" />
                         <Label>Terminal Type</Label>
                         <ComboBox ItemsSource="{Binding Source={StaticResource terminalOptions}}" SelectedItem="{Binding TerminalType}" />
                         <Label>Show Terminal</Label>

@@ -10,6 +10,7 @@ namespace QuickTerm.Services.Executors
 			System.Diagnostics.Process process = new System.Diagnostics.Process();
 			System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 			startInfo.WindowStyle = command.ShowTerminal ? System.Diagnostics.ProcessWindowStyle.Normal : System.Diagnostics.ProcessWindowStyle.Hidden;
+			startInfo.WorkingDirectory = command.WorkingDirectory;
 			startInfo.FileName = "cmd.exe";
 			var sb = new StringBuilder();
 			sb.Append("/C ");
