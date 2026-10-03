@@ -20,6 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Interop.IWshRuntimeLibrary" Version="1.0.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
 		<PackageReference Include="SerializableHttps" Version="1.2.9" />
 		<PackageReference Include="WPF-UI" Version="4.3.0" />
@@ -32,10 +33,6 @@
 	  <Resource Include="Assets\icon1.png" />
 	  <Resource Include="Assets\icon2.png" />
 	  <Resource Include="Assets\icon.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Helpers\" />
 	</ItemGroup>
 
 	<ItemGroup>
