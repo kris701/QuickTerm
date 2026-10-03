@@ -191,34 +191,48 @@
 
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Grid Visibility="{Binding Config.Nodes, Converter={StaticResource CountToVisInv}}">
-            <Label
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontStyle="Italic">
-                No nodes added yet...
-            </Label>
-        </Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <ui:CardExpander Header="General">
+                    <StackPanel>
+                        <Label>Run on startup</Label>
+                        <ui:ToggleSwitch
+                            IsChecked="{Binding Config.RunOnStartup}"
+                            OffContent="No"
+                            OnContent="Yes" />
+                    </StackPanel>
+                </ui:CardExpander>
+                <ui:CardExpander Header="Node Tree">
+                    <StackPanel>
+                        <ui:Button
+                            x:Name="AddRootNode"
+                            Margin="2"
+                            HorizontalAlignment="Stretch"
+                            Appearance="Info"
+                            Click="AddRootNode_Click"
+                            Content="Add"
+                            Icon="{ui:SymbolIcon Add16}" />
 
-        <ui:Button
-            x:Name="AddRootNode"
-            Margin="2"
-            HorizontalAlignment="Stretch"
-            Appearance="Info"
-            Click="AddRootNode_Click"
-            Content="Add"
-            Icon="{ui:SymbolIcon Add16}" />
+                        <Grid Visibility="{Binding Config.Nodes, Converter={StaticResource CountToVisInv}}">
+                            <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontStyle="Italic">
+                                No nodes added yet...
+                            </Label>
+                        </Grid>
 
-        <ScrollViewer Grid.Row="1">
-            <ItemsControl Margin="2" ItemsSource="{Binding Config.Nodes}" />
+                        <ItemsControl Margin="2" ItemsSource="{Binding Config.Nodes}" />
+                    </StackPanel>
+                </ui:CardExpander>
+            </StackPanel>
         </ScrollViewer>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />

@@ -8,6 +8,8 @@ namespace QuickTerm.Models
 	{
 		[Required]
 		public List<TerminalNode> Nodes { get; set; } = new List<TerminalNode>();
+		[Required]
+		public bool RunOnStartup { get; set; } = false;
 
 		public void Save()
 		{
