@@ -1,3 +1,16 @@
 <Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".github/workflows/dotnet-desktop.yml" />
+    <File Path=".gitignore" />
+    <File Path="LICENSE.txt" />
+    <File Path="README.md" />
+  </Folder>
   <Project Path="QuickTerm/QuickTerm.csproj" />
 </Solution>

@@ -1,0 +1,66 @@
+name: Build and Create Release
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  check-tag:
+    name: Check build tag
+    runs-on: ubuntu-latest
+    outputs: 
+        releaseExists: ${{ steps.check-tag.outputs.exists }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get Application Project version
+        id: get-version
+        uses: kzrnm/get-net-sdk-project-versions-action@v1
+        with:
+          proj-path: QuickTerm/QuickTerm.csproj
+
+      - uses: mukunku/tag-exists-action@v1.6.0
+        id: check-tag
+        with: 
+          tag: 'v${{ steps.get-version.outputs.package-version }}'
+
+  createRelease:
+    name: Build and Create Release
+    needs: check-tag
+    if: needs.check-tag.outputs.releaseExists == 'false'
+    runs-on: windows-2025-vs2026
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile Application project as publish files
+        run: dotnet publish .\QuickTerm\QuickTerm.csproj /p:PublishProfile="SingleFileProfile.pubxml"
+
+      - name: Get Application version
+        id: get-version
+        uses: kzrnm/get-net-sdk-project-versions-action@v1
+        with:
+          proj-path: .\QuickTerm\QuickTerm.csproj
+          
+      - name: Create Tag
+        uses: jaywcjlove/create-tag-action@main
+        with:
+          version: "v${{ steps.get-version.outputs.package-version }}"
+      
+      - name: Generate Release
+        uses: ncipollo/release-action@v1
+        with:
+          skipIfReleaseExists: true
+          artifacts: "QuickTerm/bin/Release/net10.0-windows/win-x64/publish/*.exe"
+          tag: "v${{ steps.get-version.outputs.package-version }}"
+          generateReleaseNotes: true
+
+  testBuild-windows:
+    name: Build and Test (windows)
+    needs: check-tag
+    if: needs.check-tag.outputs.releaseExists == 'true'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Application
+        run: dotnet build .\QuickTerm\QuickTerm.csproj

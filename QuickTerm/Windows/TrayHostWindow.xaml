@@ -10,13 +10,13 @@
     xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title=""
-    Width="1000"
-    Height="1000"
+    Width="0"
+    Height="0"
     d:DataContext="{d:DesignInstance local:TrayHostWindow,
                                      IsDesignTimeCreatable=True}"
     Loaded="Window_Loaded"
     ShowInTaskbar="False"
-    Visibility="Visible"
+    Visibility="Hidden"
     WindowStyle="None"
     mc:Ignorable="d">
 
