@@ -71,7 +71,7 @@ namespace QuickTerm.Services
 
 			Process p = new Process();
 			p.StartInfo.FileName = "powershell.exe";
-			p.StartInfo.Arguments = "Start-Sleep -Seconds 2 ; Remove-Item ./QuickTerm.exe ; Move-Item -Path ./tmp/QuickTerm.exe -Destination ./QuickTerm.exe ; ./QuickTerm.exe";
+			p.StartInfo.Arguments = "Start-Sleep -Seconds 2 ; Remove-Item ./QuickTerm.exe ; Move-Item -Path ./tmp/QuickTerm.exe -Destination ./QuickTerm.exe ; ./QuickTerm.exe ; Remove-Item ./tmp";
 			p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 			p.Start();
 			Application.Current.Shutdown();
