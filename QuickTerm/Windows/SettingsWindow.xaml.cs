@@ -118,10 +118,15 @@ namespace QuickTerm.Windows
 
 		private void ClearConfigConfirmButton_Click(object sender, RoutedEventArgs e)
 		{
+			var currentProcess = Process.GetCurrentProcess();
+			var mainModule = currentProcess.MainModule;
+			if (mainModule == null)
+				return;
+			var currentExecutablePath = mainModule.FileName;
+
 			if (File.Exists("config.json"))
 				File.Delete("config.json");
 
-			var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
 			Process.Start(currentExecutablePath);
 			Application.Current.Shutdown();
 		}

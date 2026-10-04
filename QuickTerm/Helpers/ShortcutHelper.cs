@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using WindowsShortcutFactory;
 
 namespace QuickTerm.Helpers
 {
@@ -10,13 +11,13 @@ namespace QuickTerm.Helpers
 			if (File.Exists(dir))
 				File.Delete(dir);
 
-			IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
-			IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(dir);
-
-			shortcut.Description = "Startup shortcut for QuickTerm";
-			shortcut.WorkingDirectory = linkPath.Replace($"{filename}.exe", "");
-			shortcut.TargetPath = linkPath;
-			shortcut.Save();
+			using var shortcut = new WindowsShortcut
+			{
+				Description = "Startup shortcut for QuickTerm",
+				WorkingDirectory = linkPath.Replace($"{filename}.exe", ""),
+				Path = linkPath,
+			};
+			shortcut.Save(dir);
 		}
 
 		public static void RemoveShortcut(string folder, string filename, string linkPath)

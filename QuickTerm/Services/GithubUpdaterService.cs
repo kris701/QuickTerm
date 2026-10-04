@@ -77,22 +77,22 @@ namespace QuickTerm.Services
 			Application.Current.Shutdown();
 		}
 
-		public class GithubReleaseModel
+		private class GithubReleaseModel
 		{
 			[JsonPropertyName("tag_name")]
-			public string TagName { get; set; }
+			public string TagName { get; set; } = "";
 			[JsonPropertyName("created_at")]
-			public DateTime CreatedAt { get; set; }
+			public DateTime CreatedAt { get; set; } = DateTime.MinValue;
 			[JsonPropertyName("assets")]
-			public List<GithubReleaseModelAsset> Assets { get; set; }
+			public List<GithubReleaseModelAsset> Assets { get; set; } = new List<GithubReleaseModelAsset>();
 		}
 
-		public class GithubReleaseModelAsset
+		private class GithubReleaseModelAsset
 		{
 			[JsonPropertyName("name")]
-			public string Name { get; set; }
+			public string Name { get; set; } = "";
 			[JsonPropertyName("url")]
-			public string DownloadURL { get; set; }
+			public string DownloadURL { get; set; } = "";
 		}
 	}
 }
