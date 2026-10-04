@@ -62,7 +62,10 @@ namespace QuickTerm.Services
 
 			if (Directory.Exists("tmp"))
 				Directory.Delete("tmp", true);
-			Directory.CreateDirectory("tmp");
+
+			if (!Directory.Exists("tmp"))
+				Directory.CreateDirectory("tmp");
+
 			var path = Path.Combine("tmp", "QuickTerm.exe");
 			await File.WriteAllBytesAsync(path, ms.ToArray());
 
