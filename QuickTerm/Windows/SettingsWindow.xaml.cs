@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using QuickTerm.Models;
+using QuickTerm.Services;
 using System.Windows;
 using Wpf.Ui.Controls;
 
@@ -10,10 +11,14 @@ namespace QuickTerm.Windows
 	{
 		[ObservableProperty]
 		private ConfigModel _config = App.Config;
+		[ObservableProperty]
+		private GithubUpdaterService _updaterService;
 
-		public SettingsWindow()
+		public SettingsWindow(GithubUpdaterService githubUpdaterService)
 		{
 			DataContext = this;
+
+			UpdaterService = githubUpdaterService;
 
 			InitializeComponent();
 		}
@@ -100,6 +105,11 @@ namespace QuickTerm.Windows
 		{
 			e.Cancel = true;
 			Hide();
+		}
+
+		private void GithubLinkButton_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }
