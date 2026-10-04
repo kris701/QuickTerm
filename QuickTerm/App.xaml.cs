@@ -14,8 +14,15 @@ using Wpf.Ui.Appearance;
 [assembly: DisableDpiAwareness]
 namespace QuickTerm
 {
+	public delegate void OnConfigUpdatedEventHandler();
+
 	public partial class App : Application
 	{
+		public static event OnConfigUpdatedEventHandler? OnConfigUpdated;
+
+		private static ConfigModel _config = new ConfigModel();
+		public static ConfigModel Config { get => _config; set { _config = value; OnConfigUpdated?.Invoke(); } }
+
 		private readonly IServiceProvider _serviceProvider;
 
 		public App()
@@ -48,14 +55,12 @@ namespace QuickTerm
 			{
 				var model = JsonSerializer.Deserialize<ConfigModel>(File.ReadAllText("config.json"));
 				if (model != null)
-					services.AddSingleton(model);
-				else
-					services.AddSingleton(new ConfigModel());
+					Config = model;
 			}
-			else
-				services.AddSingleton(new ConfigModel());
 
 			// Load services
+			services.AddSingleton<GithubUpdaterService>();
+
 			services.AddSingleton<CMDExecutorService>();
 			services.AddSingleton<PowershellExecutorService>();
 			services.AddSingleton<TerminalExecutorService>();

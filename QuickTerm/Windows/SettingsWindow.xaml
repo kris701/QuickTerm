@@ -21,7 +21,6 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Icon="/Assets/icon1.png"
     Topmost="True"
-    WindowStyle="ToolWindow"
     mc:Ignorable="d">
     <Window.Resources>
         <converters:NullToVisibilityConverter
