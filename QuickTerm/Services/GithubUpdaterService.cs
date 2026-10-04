@@ -12,6 +12,16 @@ namespace QuickTerm.Services
 	{
 		public bool UpdateAvailable { get; set; } = false;
 		public string AssetURL { get; set; } = "";
+		public string CurrentVersion { get; set; } = "";
+		public string NewestVersion { get; set; } = "";
+
+		public GithubUpdaterService()
+		{
+			var thisVersion = Assembly.GetEntryAssembly()?.GetName().Version!;
+			var thisVersionStr = $"v{thisVersion.Major}.{thisVersion.Minor}.{thisVersion.Build}";
+
+			CurrentVersion = thisVersionStr;
+		}
 
 		public async Task<bool> GetNewestVersion()
 		{
@@ -23,15 +33,13 @@ namespace QuickTerm.Services
 			var url = $"https://api.github.com/repos/kris701/QuickTerm/releases/latest";
 			var version = await http.GetAsync<GithubReleaseModel>(url);
 
-			var thisVersion = Assembly.GetEntryAssembly()?.GetName().Version!;
-			var thisVersionStr = $"v{thisVersion.Major}.{thisVersion.Minor}.{thisVersion.Build}";
-
-			if (version != null && version.TagName != thisVersionStr)
+			if (version != null && version.TagName != CurrentVersion)
 			{
 				var asset = version.Assets.FirstOrDefault(x => x.Name == "QuickTerm.exe");
 				if (asset != null)
 				{
 					UpdateAvailable = true;
+					NewestVersion = version.TagName;
 					AssetURL = asset.DownloadURL;
 				}
 			}

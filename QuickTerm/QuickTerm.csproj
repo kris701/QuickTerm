@@ -20,6 +20,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Assets\github.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Interop.IWshRuntimeLibrary" Version="1.0.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
 		<PackageReference Include="SerializableHttps" Version="1.2.9" />
@@ -30,6 +34,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Assets\github.png" />
 	  <Resource Include="Assets\icon1.png" />
 	  <Resource Include="Assets\icon2.png" />
 	  <Resource Include="Assets\icon.ico" />

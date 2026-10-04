@@ -39,6 +39,14 @@
             x:Key="CountToVisInv"
             False="Visible"
             True="Hidden" />
+        <converters:BooleanToVisibilityConverter
+            x:Key="BoolToVis"
+            False="Collapsed"
+            True="Visible" />
+        <converters:BooleanToVisibilityConverter
+            x:Key="BoolToVisInv"
+            False="Visible"
+            True="Collapsed" />
 
         <ObjectDataProvider
             x:Key="terminalOptions"
@@ -170,17 +178,19 @@
                             Margin="3"
                             Text="{Binding Command}"
                             TextWrapping="Wrap" />
-                        <Label>Working Directory</Label>
+                        <Label FontWeight="Bold">Working Directory</Label>
                         <ui:TextBox Margin="3" Text="{Binding WorkingDirectory}" />
-                        <Label>Terminal Type</Label>
+                        <Label FontWeight="Bold">Terminal Type</Label>
                         <ComboBox ItemsSource="{Binding Source={StaticResource terminalOptions}}" SelectedItem="{Binding TerminalType}" />
-                        <Label>Show Terminal</Label>
+                        <Label FontWeight="Bold">Show Terminal</Label>
                         <ui:ToggleSwitch
+                            Margin="5"
                             IsChecked="{Binding ShowTerminal}"
                             OffContent="No"
                             OnContent="Yes" />
-                        <Label>Pause on Completion</Label>
+                        <Label FontWeight="Bold">Pause on Completion</Label>
                         <ui:ToggleSwitch
+                            Margin="5"
                             IsChecked="{Binding PauseOnCompletion}"
                             OffContent="No"
                             OnContent="Yes" />
@@ -200,13 +210,16 @@
             <StackPanel>
                 <ui:CardExpander Header="General">
                     <StackPanel>
-                        <Label>Run on startup</Label>
+                        <Label FontWeight="Bold">Run on startup</Label>
                         <ui:ToggleSwitch
+                            Margin="5"
                             IsChecked="{Binding Config.RunOnStartup}"
                             OffContent="No"
                             OnContent="Yes" />
-                        <Label>Check for Updates</Label>
+                        <Label FontWeight="Bold">Check for Updates</Label>
+                        <TextBlock FontSize="12" FontStyle="Italic">It only checks when the application starts!</TextBlock>
                         <ui:ToggleSwitch
+                            Margin="5"
                             IsChecked="{Binding Config.CheckForUpdates}"
                             OffContent="No"
                             OnContent="Yes" />
@@ -233,6 +246,29 @@
                         </Grid>
 
                         <ItemsControl Margin="2" ItemsSource="{Binding Config.Nodes}" />
+                    </StackPanel>
+                </ui:CardExpander>
+                <ui:CardExpander Header="Application">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">QuickTerm</TextBlock>
+                        <TextBlock>©Kristian Skov 2026</TextBlock>
+                        <TextBlock>
+                            <Run>Current version</Run>
+                            <Run Text="{Binding UpdaterService.CurrentVersion}" />
+                        </TextBlock>
+
+                        <TextBlock Visibility="{Binding UpdaterService.UpdateAvailable, Converter={StaticResource BoolToVis}}">
+                            <Run>Newest version</Run>
+                            <Run Text="{Binding UpdaterService.NewestVersion}" />
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding UpdaterService.UpdateAvailable, Converter={StaticResource BoolToVisInv}}">
+                            <Run>No update available/updates are disabled</Run>
+                        </TextBlock>
+
+                        <ui:HyperlinkButton
+                            Content="GitHub"
+                            Icon="{ui:ImageIcon 'pack://application:,,,/Assets/github.png'}"
+                            NavigateUri="https://github.com/kris701/QuickTerm" />
                     </StackPanel>
                 </ui:CardExpander>
             </StackPanel>
