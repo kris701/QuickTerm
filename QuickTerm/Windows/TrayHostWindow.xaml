@@ -16,7 +16,7 @@
                                      IsDesignTimeCreatable=True}"
     Background="{DynamicResource ApplicationBackgroundBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Icon="/Assets/icon1.png"
+    Icon="/Assets/icon.png"
     Loaded="Window_Loaded"
     ShowInTaskbar="False"
     Visibility="Hidden"
@@ -35,7 +35,7 @@
 
     <tray:NotifyIcon
         x:Name="trayIcon"
-        Icon="pack://application:,,,/Assets/icon2.png"
+        Icon="pack://application:,,,/Assets/icon.png"
         MenuOnRightClick="True"
         TooltipText="QuickTerm">
         <tray:NotifyIcon.Menu>

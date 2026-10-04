@@ -19,7 +19,7 @@
     Background="{DynamicResource ApplicationBackgroundBrush}"
     Closing="Window_Closing"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-    Icon="/Assets/icon1.png"
+    Icon="/Assets/icon.png"
     Topmost="True"
     mc:Ignorable="d">
     <Window.Resources>

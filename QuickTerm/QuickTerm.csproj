@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-	  <Version>1.0.10</Version>
+	  <Version>1.0.11</Version>
 	  <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
 	  <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
   </PropertyGroup>
@@ -29,8 +29,7 @@
 
 	<ItemGroup>
 	  <Resource Include="Assets\github.png" />
-	  <Resource Include="Assets\icon1.png" />
-	  <Resource Include="Assets\icon2.png" />
+	  <Resource Include="Assets\icon.png" />
 	  <Resource Include="Assets\icon.ico" />
 	</ItemGroup>
 
