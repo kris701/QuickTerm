@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using QuickTerm.Models;
 using QuickTerm.Services;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using Wpf.Ui.Controls;
 
@@ -13,6 +15,8 @@ namespace QuickTerm.Windows
 		private ConfigModel _config = App.Config;
 		[ObservableProperty]
 		private GithubUpdaterService _updaterService;
+		[ObservableProperty]
+		private bool _confirmDialog = false;
 
 		public SettingsWindow(GithubUpdaterService githubUpdaterService)
 		{
@@ -107,9 +111,19 @@ namespace QuickTerm.Windows
 			Hide();
 		}
 
-		private void GithubLinkButton_Click(object sender, RoutedEventArgs e)
+		private void ClearConfigButton_Click(object sender, RoutedEventArgs e)
 		{
+			ConfirmDialog = true;
+		}
 
+		private void ClearConfigConfirmButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (File.Exists("config.json"))
+				File.Delete("config.json");
+
+			var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
+			Process.Start(currentExecutablePath);
+			Application.Current.Shutdown();
 		}
 	}
 }

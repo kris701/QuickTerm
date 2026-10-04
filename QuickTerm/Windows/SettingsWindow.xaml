@@ -248,6 +248,37 @@
                         <ItemsControl Margin="2" ItemsSource="{Binding Config.Nodes}" />
                     </StackPanel>
                 </ui:CardExpander>
+                <ui:CardExpander Header="Danger Section">
+                    <StackPanel>
+                        <Label FontWeight="Bold">Purge Config File</Label>
+                        <ui:Button
+                            x:Name="ClearConfigButton"
+                            Margin="2"
+                            HorizontalAlignment="Stretch"
+                            Appearance="Danger"
+                            Click="ClearConfigButton_Click"
+                            Content="Purge Config"
+                            Icon="{ui:SymbolIcon Delete16}" />
+
+                        <ui:Flyout
+                            Grid.Row="0"
+                            IsOpen="{Binding ConfirmDialog, Mode=TwoWay}"
+                            Placement="Bottom">
+                            <StackPanel>
+                                <TextBlock
+                                    Width="280"
+                                    HorizontalAlignment="Left"
+                                    Text="Are you sure? This cannot be reversed?"
+                                    TextWrapping="WrapWithOverflow" />
+                                <Button
+                                    Name="ClearConfigConfirmButton"
+                                    Margin="0,8,0,0"
+                                    Click="ClearConfigConfirmButton_Click"
+                                    Content="The cake is a lie!" />
+                            </StackPanel>
+                        </ui:Flyout>
+                    </StackPanel>
+                </ui:CardExpander>
                 <ui:CardExpander Header="Application">
                     <StackPanel>
                         <TextBlock FontWeight="Bold">QuickTerm</TextBlock>
