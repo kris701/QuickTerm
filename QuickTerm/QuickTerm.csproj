@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-	  <Version>1.0.9</Version>
+	  <Version>1.0.10</Version>
 	  <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
 	  <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
   </PropertyGroup>
@@ -20,13 +20,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Assets\github.png" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Interop.IWshRuntimeLibrary" Version="1.0.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
-		<PackageReference Include="SerializableHttps" Version="1.2.9" />
 		<PackageReference Include="WPF-UI" Version="4.3.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="WPF-UI.Tray" Version="4.3.0" />

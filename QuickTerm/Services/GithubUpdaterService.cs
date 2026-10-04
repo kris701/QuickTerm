@@ -1,7 +1,7 @@
-﻿using SerializableHttps;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Windows;
@@ -25,13 +25,13 @@ namespace QuickTerm.Services
 
 		public async Task<bool> GetNewestVersion()
 		{
-			var http = new SerializableHttpsClient();
-			http.AddHeader("X-GitHub-Api-Version", "2026-03-10");
-			http.AddHeader("User-Agent", "QuickTerm-Client");
-			http.AddHeader("Accept", "application/vnd.github+json");
+			HttpClient webClient = new HttpClient();
+			webClient.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2026-03-10");
+			webClient.DefaultRequestHeaders.Add("User-Agent", "QuickTerm-Client");
+			webClient.DefaultRequestHeaders.Add("Accept", "application/vnd.github+json");
 
 			var url = $"https://api.github.com/repos/kris701/QuickTerm/releases/latest";
-			var version = await http.GetAsync<GithubReleaseModel>(url);
+			var version = await webClient.GetFromJsonAsync<GithubReleaseModel>(url);
 
 			if (version != null && version.TagName != CurrentVersion)
 			{
