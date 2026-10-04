@@ -6,9 +6,18 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-	  <Version>1.0.11</Version>
+	  <Version>1.0.12</Version>
 	  <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
 	  <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
+	  <SignAssembly>False</SignAssembly>
+	  <Title>QuickTerm</Title>
+	  <Authors>Kristian Skov</Authors>
+	  <Description>A small project to make shortcuts to running terminal commands</Description>
+	  <PackageProjectUrl>https://github.com/kris701/QuickTerm</PackageProjectUrl>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageIcon>icon.png</PackageIcon>
+	  <RepositoryUrl>https://github.com/kris701/QuickTerm</RepositoryUrl>
+	  <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,6 +27,17 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<NoWarn>CA1416;</NoWarn>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\LICENSE.txt">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Interop.IWshRuntimeLibrary" Version="1.0.1" />
@@ -35,6 +55,13 @@
 
 	<ItemGroup>
 	  <Page Include="App.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Assets\icon.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
