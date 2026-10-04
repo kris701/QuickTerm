@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using QuickTerm.Assets;
 using QuickTerm.Models;
 using QuickTerm.Services;
 using QuickTerm.Services.Executors;
 using QuickTerm.Windows;
 using System.IO;
-using System.Reflection;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Media;
@@ -27,12 +25,6 @@ namespace QuickTerm
 
 		public App()
 		{
-			var assembly = Assembly.GetEntryAssembly()?.GetName();
-			var thisVersion = assembly!.Version!;
-			var thisVersionStr = $"{thisVersion.Major}.{thisVersion.Minor}.{thisVersion.Build}";
-			MetaData.AppVersion = thisVersionStr;
-			MetaData.FullName = assembly!.FullName;
-
 			var serviceCollection = new ServiceCollection();
 			ConfigureServices(serviceCollection);
 			_serviceProvider = serviceCollection.BuildServiceProvider();
