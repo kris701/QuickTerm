@@ -29,6 +29,8 @@ namespace QuickTerm.Models
 		public ConfigModel(ConfigModel other)
 		{
 			Nodes = new List<TerminalNode>(other.Nodes);
+			RunOnStartup = other.RunOnStartup;
+			CheckForUpdates = other.CheckForUpdates;
 		}
 
 		public static ConfigModel Copy(ConfigModel other)
